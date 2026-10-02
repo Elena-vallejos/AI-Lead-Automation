@@ -13,54 +13,15 @@ import {
   Pause,
   Play,
 } from "lucide-react";
-import { LEAD_TAG, PIPELINE_NAME } from "@/lib/site";
+import { useLanguage } from "@/lib/i18n";
+import { fill } from "@/lib/content";
 import { SectionHeading } from "./SectionHeading";
 
-const steps = [
-  {
-    icon: FileInput,
-    title: "A prospect submits a form",
-    detail:
-      "A visitor fills in the GoHighLevel form embedded on this website. The form submission is the trigger that starts the workflow.",
-  },
-  {
-    icon: Database,
-    title: "Contact information is captured",
-    detail:
-      "Name and email from the form are saved automatically — no copying and pasting into spreadsheets.",
-  },
-  {
-    icon: Database,
-    title: "Contact is added to GoHighLevel CRM",
-    detail:
-      "The lead appears as a contact record in the GoHighLevel CRM, ready for the team to view.",
-  },
-  {
-    icon: Tag,
-    title: "Tag assigned + opportunity created",
-    detail: `The contact receives the tag "${LEAD_TAG}" and an opportunity is created in the "${PIPELINE_NAME}" at the New Lead stage.`,
-  },
-  {
-    icon: BellRing,
-    title: "Internal notification sent",
-    detail:
-      "The responsible person (the account owner — not the whole workspace) is notified the moment a new lead arrives.",
-  },
-  {
-    icon: MailCheck,
-    title: "Confirmation email sent",
-    detail:
-      "The prospect receives a registration confirmation email right away so they know their request was received.",
-  },
-  {
-    icon: Clock3,
-    title: "Wait 1 day, then follow up",
-    detail:
-      "After a 24-hour delay, a follow-up email is sent automatically to keep the conversation going.",
-  },
-];
+const icons = [FileInput, Database, Database, Tag, BellRing, MailCheck, Clock3];
 
 export function HowItWorks() {
+  const { t } = useLanguage();
+  const steps = t.how.steps.map((s, i) => ({ ...s, icon: icons[i] }));
   const [active, setActive] = useState(0);
   const [playing, setPlaying] = useState(true);
   const reduce = useReducedMotion();
@@ -68,7 +29,7 @@ export function HowItWorks() {
   useEffect(() => {
     if (!playing || reduce) return;
     const id = setInterval(
-      () => setActive((a) => (a + 1) % steps.length),
+      () => setActive((a) => (a + 1) % icons.length),
       3000,
     );
     return () => clearInterval(id);
@@ -80,13 +41,13 @@ export function HowItWorks() {
     <section id="how-it-works" className="py-20 sm:py-28">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHeading
-          eyebrow="How it works"
-          title="From form submission to follow-up, automatically"
-          description="This is the exact GoHighLevel workflow behind the form on this page. Click any step to see what happens."
+          eyebrow={t.how.eyebrow}
+          title={t.how.title}
+          description={t.how.description}
         />
 
         <div className="grid gap-8 lg:grid-cols-[1.1fr_1fr]">
-          <ol className="relative space-y-3" aria-label="Workflow steps">
+          <ol className="relative space-y-3" aria-label={t.how.stepsLabel}>
             <span
               className="absolute left-[27px] top-4 bottom-4 w-px bg-line"
               aria-hidden
@@ -95,7 +56,7 @@ export function HowItWorks() {
               const isActive = i === active;
               const done = i < active;
               return (
-                <li key={s.title}>
+                <li key={i}>
                   <button
                     type="button"
                     onClick={() => {
@@ -139,7 +100,7 @@ export function HowItWorks() {
             <div className="rounded-3xl border border-line bg-deep p-6 shadow-2xl shadow-black/30 sm:p-8">
               <div className="mb-6 flex items-center justify-between">
                 <span className="text-sm font-semibold text-brand">
-                  Step {active + 1} of {steps.length}
+                  {fill(t.how.stepOf, { current: active + 1, total: steps.length })}
                 </span>
                 <button
                   type="button"
@@ -148,11 +109,11 @@ export function HowItWorks() {
                 >
                   {playing ? (
                     <>
-                      <Pause className="h-3.5 w-3.5" /> Pause
+                      <Pause className="h-3.5 w-3.5" /> {t.how.pause}
                     </>
                   ) : (
                     <>
-                      <Play className="h-3.5 w-3.5" /> Auto-play
+                      <Play className="h-3.5 w-3.5" /> {t.how.autoplay}
                     </>
                   )}
                 </button>
@@ -185,8 +146,7 @@ export function HowItWorks() {
               </AnimatePresence>
               <p className="mt-8 flex items-center gap-2 border-t border-line pt-5 text-xs text-mist/60">
                 <Send className="h-3.5 w-3.5" aria-hidden />
-                Form Submitted → Add Tag → Create Opportunity → Internal
-                Notification → Confirmation Email → Wait 1 Day → Follow-up Email
+                {t.how.chain}
               </p>
             </div>
           </div>

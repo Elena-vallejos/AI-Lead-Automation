@@ -4,8 +4,10 @@ import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { ButtonLink } from "./Button";
 import { WorkflowVisual } from "./WorkflowVisual";
+import { useLanguage } from "@/lib/i18n";
 
 export function Hero() {
+  const { t } = useLanguage();
   return (
     <section
       id="home"
@@ -27,22 +29,21 @@ export function Hero() {
         >
           <p className="mb-5 inline-flex items-center gap-2 rounded-full border border-teal-light/30 bg-teal/20 px-4 py-1.5 text-sm font-medium text-teal-light">
             <Sparkles className="h-4 w-4 text-brand" aria-hidden />
-            GoHighLevel + AI workflow automation
+            {t.hero.badge}
           </p>
           <h1 className="text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
-            Turn More Leads Into Customers With{" "}
-            <span className="text-brand">AI Automation</span>
+            {t.hero.title}{" "}
+            <span className="text-brand">{t.hero.titleAccent}</span>
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-mist/80">
-            Capture leads, automate follow-ups, and manage your sales pipeline
-            in one streamlined system.
+            {t.hero.subtitle}
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <ButtonLink href="#book">
-              Book a Discovery Call <ArrowRight className="h-4 w-4" aria-hidden />
+              {t.hero.primary} <ArrowRight className="h-4 w-4" aria-hidden />
             </ButtonLink>
             <ButtonLink href="#how-it-works" variant="secondary">
-              Explore Our Process
+              {t.hero.secondary}
             </ButtonLink>
           </div>
         </motion.div>

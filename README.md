@@ -15,7 +15,9 @@ Built for Pareto Bootcamp — Day 6 homework ("HighLevel: Run the Funnel").
 
 ## Page sections
 
-Navbar · Hero (animated workflow visual) · Problem & Solution · Services · How It Works (interactive 7-step workflow) · CRM Pipeline (interactive demo board) · Featured Expert (Kasim Aslam + books) · Book a Discovery Call (live GHL form) · Benefits · FAQ · Footer · `/privacy` page.
+Navbar (with EN / ES language toggle) · Hero (animated workflow visual) · Problem & Solution · Services · How It Works (interactive 7-step workflow) · CRM Pipeline (interactive demo board) · Featured Expert (Kasim Aslam + books) · Book a Discovery Call (live GHL form) · Benefits · FAQ · Footer · `/privacy` page.
+
+Language: English by default; the EN / ES toggle switches every section to Spanish and remembers the choice (localStorage). You can also link directly with `?lang=es`. All text lives in `src/lib/content.ts`. The embedded GoHighLevel form keeps the labels set in GHL.
 
 ## Run locally
 

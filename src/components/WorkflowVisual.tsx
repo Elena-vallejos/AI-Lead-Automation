@@ -2,16 +2,14 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { Bot, ClipboardList, Database, Mail } from "lucide-react";
+import { useLanguage } from "@/lib/i18n";
 
-const nodes = [
-  { icon: ClipboardList, label: "Form", sub: "Lead submits" },
-  { icon: Bot, label: "AI Processing", sub: "Tag & route" },
-  { icon: Database, label: "CRM", sub: "Pipeline stage" },
-  { icon: Mail, label: "Email Follow-up", sub: "Sent automatically" },
-];
+const icons = [ClipboardList, Bot, Database, Mail];
 
 export function WorkflowVisual() {
   const reduce = useReducedMotion();
+  const { t } = useLanguage();
+  const nodes = t.hero.nodes.map((n, i) => ({ ...n, icon: icons[i] }));
   return (
     <div className="relative rounded-3xl border border-line bg-deep/80 p-6 shadow-2xl shadow-black/40">
       <div className="mb-5 flex items-center justify-between">
@@ -21,7 +19,7 @@ export function WorkflowVisual() {
           <span className="h-3 w-3 rounded-full bg-mist/30" />
         </div>
         <span className="rounded-full bg-teal/40 px-3 py-1 text-xs font-medium text-teal-light">
-          Workflow preview
+          {t.hero.preview}
         </span>
       </div>
       <ol className="relative space-y-4">
@@ -31,7 +29,7 @@ export function WorkflowVisual() {
         />
         {nodes.map((n, i) => (
           <motion.li
-            key={n.label}
+            key={i}
             className="relative flex items-center gap-4 rounded-2xl border border-line bg-card p-3"
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -59,7 +57,7 @@ export function WorkflowVisual() {
               <p className="text-sm text-mist/70">{n.sub}</p>
             </div>
             <span className="ml-auto text-xs font-medium text-brand">
-              Step {i + 1}
+              {t.hero.step} {i + 1}
             </span>
           </motion.li>
         ))}

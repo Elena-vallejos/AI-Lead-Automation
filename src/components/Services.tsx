@@ -1,45 +1,25 @@
+"use client";
+
 import { BrainCircuit, KanbanSquare, MailCheck, MousePointerClick } from "lucide-react";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
+import { useLanguage } from "@/lib/i18n";
 
-const services = [
-  {
-    icon: MousePointerClick,
-    title: "Lead Capture Automation",
-    description: "Branded GoHighLevel forms embedded on your website and landing pages.",
-    benefit: "Every inquiry is captured in one place.",
-  },
-  {
-    icon: KanbanSquare,
-    title: "CRM and Pipeline Setup",
-    description: "A clear five-stage pipeline from New Lead to Won / Converted.",
-    benefit: "See where every lead stands at a glance.",
-  },
-  {
-    icon: MailCheck,
-    title: "Automated Email Follow-ups",
-    description: "Confirmation and follow-up emails sequenced with smart delays.",
-    benefit: "Consistent follow-up without remembering to send it.",
-  },
-  {
-    icon: BrainCircuit,
-    title: "AI Workflow Integration",
-    description: "AI-assisted copywriting and workflow planning to design your automations.",
-    benefit: "Launch faster with well-structured workflows.",
-  },
-];
+const icons = [MousePointerClick, KanbanSquare, MailCheck, BrainCircuit];
 
 export function Services() {
+  const { t } = useLanguage();
+  const services = t.services.items.map((s, i) => ({ ...s, icon: icons[i] }));
   return (
     <section className="bg-deep/60 py-20 sm:py-28">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <SectionHeading
-          eyebrow="Services"
-          title="Everything you need to automate your lead flow"
+          eyebrow={t.services.eyebrow}
+          title={t.services.title}
         />
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {services.map((s, i) => (
-            <Reveal key={s.title} delay={i * 0.08}>
+            <Reveal key={i} delay={i * 0.08}>
               <article className="group flex h-full flex-col rounded-2xl border border-line bg-card p-6 shadow-lg shadow-black/20 transition-transform hover:-translate-y-1 hover:border-brand/50">
                 <span className="mb-5 grid h-12 w-12 place-items-center rounded-xl bg-teal text-white transition-colors group-hover:bg-brand group-hover:text-ink">
                   <s.icon className="h-6 w-6" aria-hidden />

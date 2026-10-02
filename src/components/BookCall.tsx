@@ -6,14 +6,10 @@ import { useState } from "react";
 import { CheckCircle2, Loader2, ShieldCheck } from "lucide-react";
 import { GHL_FORM_ID, GHL_FORM_NAME } from "@/lib/site";
 import { Reveal } from "./Reveal";
-
-const expectations = [
-  "Instant registration confirmation email",
-  "A personal follow-up the next day",
-  "A short call to map your automation opportunities",
-];
+import { useLanguage } from "@/lib/i18n";
 
 export function BookCall() {
+  const { t } = useLanguage();
   const [loaded, setLoaded] = useState(false);
 
   return (
@@ -22,18 +18,16 @@ export function BookCall() {
       <div className="relative mx-auto grid max-w-6xl gap-10 px-4 sm:px-6 lg:grid-cols-[0.9fr_1.1fr]">
         <Reveal>
           <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-brand">
-            Get started
+            {t.book.eyebrow}
           </p>
           <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-            Book Your AI Automation Discovery Call
+            {t.book.title}
           </h2>
           <p className="mt-4 text-lg leading-relaxed text-mist/80">
-            Tell us about your business and what you want to automate. Your
-            details go straight into our GoHighLevel CRM and kick off the
-            workflow shown above.
+            {t.book.description}
           </p>
           <ul className="mt-8 space-y-3">
-            {expectations.map((e) => (
+            {t.book.expectations.map((e) => (
               <li key={e} className="flex items-start gap-3 text-mist">
                 <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-teal-light" aria-hidden />
                 {e}
@@ -43,10 +37,9 @@ export function BookCall() {
           <p className="mt-8 flex items-start gap-3 rounded-2xl border border-line bg-deep p-4 text-sm text-mist/70">
             <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-brand" aria-hidden />
             <span>
-              Privacy notice: we only use your information to respond to your
-              request and send related follow-up emails. See our{" "}
+              {t.book.privacy}{" "}
               <Link href="/privacy" className="text-brand underline-offset-2 hover:underline">
-                Privacy Policy
+                {t.book.privacyLink}
               </Link>
               .
             </span>
@@ -59,7 +52,7 @@ export function BookCall() {
               <div className="absolute inset-0 grid place-items-center bg-white text-slate-500">
                 <span className="flex items-center gap-2 text-sm">
                   <Loader2 className="h-5 w-5 animate-spin" aria-hidden />
-                  Loading form…
+                  {t.book.loading}
                 </span>
               </div>
             )}
